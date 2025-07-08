@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Socket Game Demo</title>
+</head>
+<body>
+  <h2>👾 雙人聊天室 demo</h2>
+  <input id="msgInput" autocomplete="off" />
+  <button onclick="send()">發送</button>
+  <ul id="chatLog"></ul>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    function send() {
+      const msg = document.getElementById('msgInput').value;
+      socket.emit('chat', msg);
+    }
+
+    socket.on('chat', function(msg) {
+      const li = document.createElement('li');
+      li.textContent = msg;
+      document.getElementById('chatLog').appendChild(li);
+    });
+  </script>
+</body>
+</html>
